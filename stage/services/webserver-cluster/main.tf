@@ -3,10 +3,14 @@ provider "aws" {
   region = "us-east-2"
 }
 
-variable "server_port" {
-  description = "HTTP requestに使うport番号"
-  type        = number
-  default     = 8080
+terraform {
+  backend "s3" {
+    bucket         = "terraform-up-and-running-state-mrsekut-2024"
+    key            = "stage/services/webserver-cluster/terraform.tfstate"
+    region         = "us-east-2"
+    dynamodb_table = "terraform-up-and-running-locks"
+    encrypt        = true
+  }
 }
 
 
@@ -145,9 +149,4 @@ resource "aws_security_group" "alb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-output "alb_dns_name" {
-  value       = aws_lb.example.dns_name
-  description = "The domain name of the load balancer"
 }
