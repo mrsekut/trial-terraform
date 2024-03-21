@@ -1,3 +1,4 @@
+# https://scrapbox.io/mrsekut-p/%E3%80%8E詳解_Terraform_第3版%E3%80%8F 3.2
 provider "aws" {
   region = "us-east-2"
 }
